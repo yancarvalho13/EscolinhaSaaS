@@ -51,7 +51,7 @@ public class TelaAlunos extends JFrame {
                 Long id = Long.valueOf(table1.getValueAt(table1.getSelectedRow(), 0).toString());
                 String name = nomeTextField.getText();
                 Long cpf = Long.valueOf(cpfTextField.getText());
-                String bornDate = dataDeNascimentoTextField.getText();
+                LocalDate bornDate = dateTextFieldFormatter();
                 String father = nomeDoPaiTextField.getText();
                 String mother = nomeDaMaeTextField.getText();
 
@@ -123,7 +123,7 @@ public class TelaAlunos extends JFrame {
     private void updateButton(Long id) {
         String name = nomeTextField.getText();
         Long cpf = Long.valueOf(cpfTextField.getText());
-        String bornDate = dataDeNascimentoTextField.getText();
+        LocalDate bornDate = dateTextFieldFormatter();
         String father = nomeDoPaiTextField.getText();
         String mother = nomeDaMaeTextField.getText();
 
@@ -147,9 +147,7 @@ public class TelaAlunos extends JFrame {
 
     private void saveButton() {
         try {
-            String bornDateString = dataDeNascimentoTextField.getText();
-            DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-            LocalDate bornDate = LocalDate.parse(bornDateString, dateTimeFormatter);
+            LocalDate bornDate = dateTextFieldFormatter();
 
             Student student = studentService.createStudent(nomeTextField.getText(),
                     cpfTextField.getText(), bornDate,
@@ -162,6 +160,13 @@ public class TelaAlunos extends JFrame {
         }
 
 
+    }
+
+    private LocalDate dateTextFieldFormatter() {
+        String bornDateString = dataDeNascimentoTextField.getText();
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        LocalDate bornDate = LocalDate.parse(bornDateString, dateTimeFormatter);
+        return bornDate;
     }
 
 }

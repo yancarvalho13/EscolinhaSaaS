@@ -8,6 +8,9 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
+
 @Repository
 public interface ProfessorRepository extends JpaRepository<Professor, Long> {
 
@@ -20,6 +23,6 @@ public interface ProfessorRepository extends JpaRepository<Professor, Long> {
     public void updateAllProfessorData(@Param("id") Long id,
                                        @Param("name") String name,
                                        @Param("cpf") Long cpf,
-                                       @Param("bornDate") String bornDate,
-                                       @Param("salary") Double salary);
+                                       @Param("bornDate") LocalDate bornDate,
+                                       @Param("salary") BigDecimal salary);
 }

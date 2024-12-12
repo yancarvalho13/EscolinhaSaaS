@@ -114,8 +114,8 @@ public class TelaProfessores extends JFrame{
     private void updateButton(Long id){
         String name = nameTextField.getText();
         Long cpf = Long.valueOf(cpfTextField.getText());
-        String bornDate = bornDateTextField.getText();
-        Double salary = Double.valueOf(salarioTextField.getText());
+        LocalDate bornDate = dateTextFieldFormatter();
+        BigDecimal salary = new BigDecimal(salarioTextField.getText());
 
         professorService.updateProfessor(id, name, cpf, bornDate, salary);
         updateTable(professorService);
@@ -123,9 +123,7 @@ public class TelaProfessores extends JFrame{
 
     private void saveButton(){
         try {
-            String bornDateString = bornDateTextField.getText();
-            DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-            LocalDate bornDate = LocalDate.parse(bornDateString, dateTimeFormatter);
+            LocalDate bornDate = dateTextFieldFormatter();
             BigDecimal salary;
 
             Professor professor = professorService.createProfessor(
@@ -140,6 +138,13 @@ public class TelaProfessores extends JFrame{
             throw new RuntimeException(e+ ": Professor not Saved !!");
         }
 
+    }
+
+    private LocalDate dateTextFieldFormatter() {
+        String bornDateString = bornDateTextField.getText();
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        LocalDate bornDate = LocalDate.parse(bornDateString, dateTimeFormatter);
+        return bornDate;
     }
 
 }

@@ -42,7 +42,7 @@ public class ProfessorService {
         professorRepository.deleteProfessorByName(name);
     }
 
-    public void updateProfessor(Long id, String name, Long cpf, String bornDate, Double salary ){
+    public void updateProfessor(Long id, String name, Long cpf, LocalDate bornDate, BigDecimal salary ){
         professorRepository.updateAllProfessorData(id, name, cpf, bornDate, salary);
     }
 

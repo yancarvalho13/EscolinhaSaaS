@@ -8,6 +8,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
+
 @Repository
 
 public interface StudentRepository extends JpaRepository<Student, Long> {
@@ -21,7 +23,7 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
     public void updateAllStudentData(@Param("id") Long id,
                               @Param("name") String name,
                               @Param("cpf") Long cpf,
-                              @Param("bornDate") String bornDate,
+                              @Param("bornDate") LocalDate bornDate,
                               @Param("father") String father,
                               @Param("mother") String mother);
 }

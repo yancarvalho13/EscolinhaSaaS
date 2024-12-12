@@ -41,7 +41,7 @@ public class StudentService {
         studentRepository.deleteStudentByName(name);
     }
 
-    public void updateStudent(Long id, String name, Long cpf, String bornDate, String father, String mother) {
+    public void updateStudent(Long id, String name, Long cpf, LocalDate bornDate, String father, String mother) {
         studentRepository.updateAllStudentData(id, name, cpf, bornDate, father, mother);
     }
 
