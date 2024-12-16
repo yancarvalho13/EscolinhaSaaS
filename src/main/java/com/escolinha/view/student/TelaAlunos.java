@@ -32,6 +32,7 @@ public class TelaAlunos extends JFrame {
     private JPanel panelAluno;
     private JTable table1;
     private JScrollPane pane1;
+    private JComboBox comboBox1;
     private final StudentService studentService;
 
 

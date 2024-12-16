@@ -35,6 +35,8 @@ public class Student {
     @Column(nullable = false, unique = true, length = 11)
     private Long cpf;
 
+
+
     @Past(message = "Data de nascimento deve ser no passado")
     @Column(nullable = false)
     @DateTimeFormat(pattern = "dd/MM/yyyy")
@@ -47,6 +49,8 @@ public class Student {
     @NotBlank
     @Column
     private String mother;
+
+
 
 
 

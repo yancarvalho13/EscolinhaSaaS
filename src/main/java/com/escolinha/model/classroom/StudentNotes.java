@@ -6,11 +6,11 @@ import jakarta.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
-@Table(name = "Grades")
-public class Grade {
+@Table(name = "StudentNotes")
+public class StudentNotes {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idGrade;
+    private Long idStudentNotes;
 
     @ManyToOne
     @JoinColumn(name = "student_id", nullable = false)
@@ -29,12 +29,13 @@ public class Grade {
     private Unit unit;
 
     @Column(nullable = false, precision = 4, scale = 2)
-    private BigDecimal grade;
+    private BigDecimal firstSemesterGrade;
 
-    public enum Unit {
-        PRIMEIRA_UNIDADE,
-        SEGUNDA_UNIDADE,
-        TERCEIRA_UNIDADE,
-        QUARTA_UNIDADE
-    }
+    @Column(nullable = false, precision = 4, scale = 2)
+    private BigDecimal secondSemesterGrade;
+
+    @Column(nullable = false, precision = 4, scale = 2)
+    private BigDecimal finalGrade;
+
+
 }
