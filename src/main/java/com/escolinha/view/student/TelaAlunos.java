@@ -41,6 +41,7 @@ public class TelaAlunos extends JFrame {
         setContentPane(panelAluno);
         setTitle("Gerenciamento de Alunos");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setSize(new Dimension(800,600));
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setLocationRelativeTo(null);
         updateTable(studentService);

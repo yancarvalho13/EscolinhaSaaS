@@ -39,6 +39,7 @@ public class TelaProfessores extends JFrame{
         setContentPane(panelProfessor);
         setTitle("Gerenciamento de Professores");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setSize(800, 600);
         setExtendedState(MAXIMIZED_BOTH);
         setLocationRelativeTo(null);
         updateTable(professorService);

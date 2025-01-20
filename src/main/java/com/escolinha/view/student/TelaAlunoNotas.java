@@ -27,6 +27,7 @@ public class TelaAlunoNotas extends JFrame{
         setContentPane(panelAlunoNotas);
         setTitle("Aluno");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setSize(400, 300);
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setLocationRelativeTo(null);
         setVisible(true);

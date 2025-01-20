@@ -1,57 +1,33 @@
 package com.escolinha.model.student;
 
+import com.escolinha.model.classroom.BoletimAnual;
+import com.escolinha.model.classroom.Unidade;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Past;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
-@Table(name = "Students",
-        uniqueConstraints = {
-        @UniqueConstraint(columnNames = "cpf", name = "uk_student_cpf")
-        })
-@NoArgsConstructor
 @Getter
 @Setter
-@AllArgsConstructor
 public class Student {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idStudent;
 
-    @NotBlank(message = "Nome do Aluno Obrigatório")
-    @Column(nullable = false)
     private String name;
-
-    @NotNull(message = "Cpf Obrigatório")
-    @Column(nullable = false, unique = true, length = 11)
     private Long cpf;
-
-
-
-    @Past(message = "Data de nascimento deve ser no passado")
-    @Column(nullable = false)
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
     private LocalDate bornDate;
-
-    @NotBlank
-    @Column
     private String father;
-
-    @NotBlank
-    @Column
     private String mother;
 
+    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Unidade> unidades;
 
-
+    @OneToOne(mappedBy = "student", cascade = CascadeType.ALL, orphanRemoval = true)
+    private BoletimAnual boletimAnual;
 
 
 }
