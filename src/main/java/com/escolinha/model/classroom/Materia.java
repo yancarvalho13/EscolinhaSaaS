@@ -1,10 +1,13 @@
 package com.escolinha.model.classroom;
 
 import jakarta.persistence.*;
+import lombok.Getter;
 
 import java.util.List;
 
 @Entity
+@Getter
+
 public class Materia {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

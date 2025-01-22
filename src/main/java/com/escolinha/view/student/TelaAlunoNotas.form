@@ -70,7 +70,10 @@
         <children>
           <component id="ac20f" class="javax.swing.JTable" binding="table1" default-binding="true">
             <constraints/>
-            <properties/>
+            <properties>
+              <font size="30"/>
+              <rowHeight value="50"/>
+            </properties>
           </component>
         </children>
       </scrollpane>
@@ -79,7 +82,12 @@
           <grid row="5" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <model/>
+          <model>
+            <item value="Unidade 1"/>
+            <item value="Unidade 2"/>
+            <item value="Unidade 3"/>
+            <item value="Unidade 4"/>
+          </model>
           <name value="Unidade"/>
         </properties>
       </component>
@@ -93,7 +101,7 @@
       </component>
       <component id="2a2ca" class="javax.swing.JButton" binding="voltarButton">
         <constraints>
-          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <font size="40"/>

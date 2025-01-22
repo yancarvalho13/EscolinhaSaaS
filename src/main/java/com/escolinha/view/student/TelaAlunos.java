@@ -2,6 +2,8 @@ package com.escolinha.view.student;
 
 import com.escolinha.model.student.Student;
 import com.escolinha.model.student.StudentTableModel;
+import com.escolinha.repository.BoletimRepository;
+import com.escolinha.service.BoletimService;
 import com.escolinha.service.StudentService;
 import org.springframework.stereotype.Component;
 
@@ -34,10 +36,11 @@ public class TelaAlunos extends JFrame {
     private JScrollPane pane1;
     private JComboBox comboBox1;
     private final StudentService studentService;
+    private final BoletimService boletimService;
 
-
-    public TelaAlunos(StudentService studentService) {
+    public TelaAlunos(StudentService studentService, BoletimService boletimService) {
         this.studentService = studentService;
+        this.boletimService = boletimService;
         setContentPane(panelAluno);
         setTitle("Gerenciamento de Alunos");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -97,7 +100,7 @@ public class TelaAlunos extends JFrame {
                     });
 
                     if(e.getClickCount() == 2){
-                        TelaAlunoNotas telaAlunoNotas = new TelaAlunoNotas(studentService, id);
+                        TelaAlunoNotas telaAlunoNotas = new TelaAlunoNotas(studentService, id, boletimService);
                     }
 
                 }

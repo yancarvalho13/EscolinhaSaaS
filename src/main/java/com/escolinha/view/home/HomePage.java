@@ -1,5 +1,6 @@
 package com.escolinha.view.home;
 
+import com.escolinha.service.BoletimService;
 import com.escolinha.service.ProfessorService;
 import com.escolinha.service.StudentService;
 import com.escolinha.view.professor.TelaProfessores;
@@ -27,10 +28,12 @@ public class HomePage extends JFrame {
     private JLabel nomeEscolinha;
     private final StudentService studentService;
     private final ProfessorService professorService;
+    private final BoletimService boletimService;
 
-    public HomePage(StudentService studentService, ProfessorService professorService)throws Exception {
+    public HomePage(StudentService studentService, ProfessorService professorService, BoletimService boletimService)throws Exception {
         this.studentService = studentService;
         this.professorService = professorService;
+        this.boletimService = boletimService;
         setContentPane(panel1);
         setTheme();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -50,7 +53,7 @@ public class HomePage extends JFrame {
         alunosButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                TelaAlunos telaAlunos = new TelaAlunos(studentService);
+                TelaAlunos telaAlunos = new TelaAlunos(studentService, boletimService);
                 telaAlunos.setVisible(true);
             }
         });
