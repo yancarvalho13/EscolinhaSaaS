@@ -3,7 +3,7 @@
   <grid id="27dc6" binding="panelAlunoNotas" layout-manager="GridLayoutManager" row-count="7" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="0" left="0" bottom="0" right="0"/>
     <constraints>
-      <xy x="20" y="20" width="500" height="444"/>
+      <xy x="20" y="20" width="500" height="467"/>
     </constraints>
     <properties/>
     <border type="none"/>
@@ -15,6 +15,8 @@
           </grid>
         </constraints>
         <properties>
+          <editable value="false"/>
+          <enabled value="true"/>
           <font size="40"/>
           <horizontalAlignment value="0"/>
         </properties>
@@ -26,6 +28,8 @@
           </grid>
         </constraints>
         <properties>
+          <editable value="false"/>
+          <enabled value="true"/>
           <font size="40"/>
           <horizontalAlignment value="0"/>
         </properties>
@@ -37,6 +41,8 @@
           </grid>
         </constraints>
         <properties>
+          <editable value="false"/>
+          <enabled value="true"/>
           <font size="40"/>
           <horizontalAlignment value="0"/>
         </properties>
@@ -48,6 +54,8 @@
           </grid>
         </constraints>
         <properties>
+          <editable value="false"/>
+          <enabled value="true"/>
           <font size="40"/>
           <horizontalAlignment value="0"/>
         </properties>
@@ -59,7 +67,17 @@
         </constraints>
         <properties/>
         <border type="none"/>
-        <children/>
+        <children>
+          <component id="3b732" class="javax.swing.JLabel">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <icon value="images/novaLogoEscola.jpg"/>
+              <text value=""/>
+            </properties>
+          </component>
+        </children>
       </grid>
       <scrollpane id="67c0b">
         <constraints>
@@ -77,20 +95,6 @@
           </component>
         </children>
       </scrollpane>
-      <component id="a8d" class="javax.swing.JComboBox" binding="comboBox1" default-binding="true">
-        <constraints>
-          <grid row="5" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <model>
-            <item value="Unidade 1"/>
-            <item value="Unidade 2"/>
-            <item value="Unidade 3"/>
-            <item value="Unidade 4"/>
-          </model>
-          <name value="Unidade"/>
-        </properties>
-      </component>
       <component id="c733e" class="javax.swing.JLabel" binding="Unidade">
         <constraints>
           <grid row="4" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
@@ -104,8 +108,10 @@
           <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
+          <focusable value="false"/>
           <font size="40"/>
           <horizontalAlignment value="0"/>
+          <rolloverEnabled value="false"/>
           <text value="Button"/>
         </properties>
       </component>
@@ -116,10 +122,43 @@
           </grid>
         </constraints>
         <properties>
+          <enabled value="true"/>
           <font size="40"/>
           <horizontalAlignment value="0"/>
         </properties>
       </component>
+      <grid id="88ebb" layout-manager="GridLayoutManager" row-count="2" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+        <margin top="0" left="0" bottom="0" right="0"/>
+        <constraints>
+          <grid row="5" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <component id="a8d" class="javax.swing.JComboBox" binding="comboBox1" default-binding="true">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <model>
+                <item value="Unidade 1"/>
+                <item value="Unidade 2"/>
+                <item value="Unidade 3"/>
+                <item value="Unidade 4"/>
+              </model>
+              <name value="Unidade"/>
+            </properties>
+          </component>
+          <component id="e1dda" class="javax.swing.JButton" binding="boletimFinalButton" default-binding="true">
+            <constraints>
+              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="Boletim Final"/>
+            </properties>
+          </component>
+        </children>
+      </grid>
     </children>
   </grid>
 </form>

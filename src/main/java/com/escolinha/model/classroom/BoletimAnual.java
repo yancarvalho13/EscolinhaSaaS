@@ -2,10 +2,19 @@ package com.escolinha.model.classroom;
 
 import com.escolinha.model.student.Student;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.checkerframework.checker.units.qual.N;
 
 import java.util.Map;
 
 @Entity
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class BoletimAnual {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

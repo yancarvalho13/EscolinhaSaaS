@@ -19,7 +19,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Component
-public class TelaProfessores extends JFrame{
+public class TelaProfessores extends JPanel{
     private JFrame frame;
     private JButton cadastrarButton;
     private JButton atualizarButton;
@@ -36,12 +36,6 @@ public class TelaProfessores extends JFrame{
 
     public TelaProfessores(ProfessorService professorService){
         this.professorService = professorService;
-        setContentPane(panelProfessor);
-        setTitle("Gerenciamento de Professores");
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setSize(800, 600);
-        setExtendedState(MAXIMIZED_BOTH);
-        setLocationRelativeTo(null);
         updateTable(professorService);
 
         atualizarButton.addActionListener(new ActionListener() {
@@ -89,12 +83,6 @@ public class TelaProfessores extends JFrame{
             }
         });
 
-        voltarButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                dispose();
-            }
-        });
     }
 
     private void deleteButton(String name){

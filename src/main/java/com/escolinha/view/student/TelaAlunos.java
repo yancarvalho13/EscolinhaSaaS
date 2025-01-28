@@ -18,8 +18,10 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-@Component
+
 public class TelaAlunos extends JFrame {
+
+    private TelaAlunosCloseListener closeListener;
     private JFrame frame;
     private JButton cadastrarButton;
     private JButton atualizarButton;
@@ -33,21 +35,28 @@ public class TelaAlunos extends JFrame {
     private JTextField turmaTextField;
     private JPanel panelAluno;
     private JTable table1;
-    private JScrollPane pane1;
-    private JComboBox comboBox1;
     private final StudentService studentService;
     private final BoletimService boletimService;
 
-    public TelaAlunos(StudentService studentService, BoletimService boletimService) {
+    public TelaAlunos(StudentService studentService, BoletimService boletimService, TelaAlunosCloseListener closeListener) {
+        this.closeListener = closeListener;
         this.studentService = studentService;
         this.boletimService = boletimService;
+
         setContentPane(panelAluno);
         setTitle("Gerenciamento de Alunos");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setSize(new Dimension(800,600));
-        setExtendedState(JFrame.MAXIMIZED_BOTH);
+        setSize(new Dimension(1024,400));
         setLocationRelativeTo(null);
-        updateTable(studentService);
+
+        this.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+                if (closeListener != null) {
+                    closeListener.onTelaAlunosClosed();
+                }
+            }
+        });
 
 
         atualizarButton.addActionListener(new ActionListener() {
@@ -72,7 +81,7 @@ public class TelaAlunos extends JFrame {
         });
 
         //Seleção de usuário na tabela
-        table1.addMouseListener(new MouseAdapter() {
+        /*table1.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 int selectedRow = table1.getSelectedRow();
@@ -105,7 +114,7 @@ public class TelaAlunos extends JFrame {
 
                 }
             }
-        });
+        });*/
 
 
 
@@ -113,7 +122,6 @@ public class TelaAlunos extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 saveButton();
-                updateTable(studentService);
             }
         });
 
@@ -154,17 +162,20 @@ public class TelaAlunos extends JFrame {
         try {
             LocalDate bornDate = dateTextFieldFormatter();
 
-            Student student = studentService.createStudent(nomeTextField.getText(),
-                    cpfTextField.getText(), bornDate,
-                    nomeDoPaiTextField.getText(), nomeDaMaeTextField.getText());
+            Student student = studentService.createStudent(
+                    nomeTextField.getText(),
+                    cpfTextField.getText(),
+                    bornDate,
+                    nomeDoPaiTextField.getText(),
+                    nomeDaMaeTextField.getText()
+            );
 
             studentService.saveStudent(student);
-            JOptionPane.showMessageDialog(frame, "User saved !!");
+            JOptionPane.showMessageDialog(frame, "Usuário salvo com sucesso!");
+            closeListener.onTelaAlunosClosed(); // Chama o listener para atualizar a tabela
         } catch (Exception e) {
-            throw new RuntimeException(e + ": User not Saved !!");
+            JOptionPane.showMessageDialog(frame, "Erro ao salvar usuário: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
         }
-
-
     }
 
     private LocalDate dateTextFieldFormatter() {
@@ -172,6 +183,10 @@ public class TelaAlunos extends JFrame {
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         LocalDate bornDate = LocalDate.parse(bornDateString, dateTimeFormatter);
         return bornDate;
+    }
+
+    public interface TelaAlunosCloseListener {
+        void onTelaAlunosClosed();
     }
 
 }
