@@ -23,9 +23,24 @@ import lombok.Getter;
         private double nota1;
         private double nota2;
 
+        public Unidade(Student student, Materia materia, int posicaoUnidade, double nota1, double nota2) {
+            this.student = student;
+            this.materia = materia;
+            this.posicaoUnidade = posicaoUnidade;
+            this.nota1 = nota1;
+            this.nota2 = nota2;
+        }
+
+        public Unidade() {
+
+        }
+
+
+
         @Transient
         public double getNotaFinal() {
             return (nota1 + nota2) / 2;
         }
+
     }
 

@@ -18,8 +18,8 @@ public class TelaBoletim extends JFrame {
     private JTextField textField2;
     private JComboBox materiaComboBox;
     private JComboBox unidadeComboBox;
-    private JTextField textField3;
-    private JTextField textField4;
+    private JTextField prova1TextField;
+    private JTextField prova2TextField;
     private JComboBox alunosComboBox;
     private JButton salvarNotaButton;
     private JTable table1;
@@ -29,6 +29,7 @@ public class TelaBoletim extends JFrame {
     private MateriaRepository materiaRepository;
     private MateriaService materiaService;
     private UnidadeService unidadeService;
+    private Long selectedId;
 
 
     public TelaBoletim(StudentService studentService, BoletimService boletimService, BoletimFinalService boletimFinalService, MateriaService materiaService, UnidadeService unidadeService) {
@@ -46,11 +47,27 @@ public class TelaBoletim extends JFrame {
 
         getAlunosComboBox();
         getMateriasComboBox();
-
+        salvarNota();
 
 
     }
 
+    private void salvarNota() {
+        salvarNotaButton.addActionListener(a ->{
+            String materiaName = materiaComboBox.getSelectedItem().toString();
+            String studentName = alunosComboBox.getSelectedItem().toString();
+            int posicaoUnidade = unidadeComboBox.getSelectedIndex()+1;
+            Double prova1 = Double.parseDouble(prova1TextField.getText());
+            Double prova2 = Double.parseDouble(prova2TextField.getText());
+            Student student = studentService.findStudentByName(studentName);
+            Materia materia = materiaService.findBynome(materiaName);
+            System.out.println(materia.getIdMateria());
+            Unidade unidade = new Unidade(student, materia, posicaoUnidade, prova1, prova2);
+            unidadeService.save(unidade);
+        });
+
+
+    }
 
     private void getMateriasComboBox() {
         List<Materia> materiaList = materiaService.findAll();
@@ -64,6 +81,12 @@ public class TelaBoletim extends JFrame {
         for(Student student : studentList) {
             alunosComboBox.addItem(makeObj(student.getName()));
         }
+        alunosComboBox.addActionListener(e -> {
+           String name = alunosComboBox.getSelectedItem().toString();
+           var student  = studentService.findStudentByName(name);
+           this.selectedId = student.getIdStudent(); ///Não rodar debug nessa linha, Trava o computador
+            System.out.println(selectedId);
+        });
     }
     private Object makeObj(final String item)  {
         return new Object() { public String toString() { return item; } };

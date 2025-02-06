@@ -55,4 +55,8 @@ public class StudentService {
         Optional<Student> student = studentRepository.findById(id);
         return student.orElse(null);
     }
+
+    public Student findStudentByName(String name){
+        return studentRepository.findStudentByName(name);
+    }
 }

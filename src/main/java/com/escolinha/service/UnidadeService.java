@@ -14,6 +14,10 @@ public class UnidadeService {
         this.repository = repository;
     }
 
+    public Unidade save(Unidade unidade) {
+        return repository.save(unidade);
+    }
+
     public List<Unidade> findAll() {
         return repository.findAll();
     }

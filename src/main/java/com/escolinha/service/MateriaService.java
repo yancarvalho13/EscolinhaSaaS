@@ -18,4 +18,8 @@ public class MateriaService {
     public List<Materia> findAll() {
         return materiaRepository.findAll();
     }
+
+    public Materia findBynome(String nome) {
+        return materiaRepository.findByNome(nome);
+    }
 }
