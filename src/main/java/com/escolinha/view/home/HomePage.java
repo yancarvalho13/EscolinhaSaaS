@@ -2,12 +2,10 @@ package com.escolinha.view.home;
 
 import com.escolinha.model.student.Student;
 import com.escolinha.model.student.StudentTableModel;
-import com.escolinha.service.BoletimFinalService;
-import com.escolinha.service.BoletimService;
-import com.escolinha.service.ProfessorService;
-import com.escolinha.service.StudentService;
+import com.escolinha.service.*;
 import com.escolinha.view.student.TelaAlunoNotas;
 import com.escolinha.view.student.TelaAlunos;
+import com.escolinha.view.student.TelaBoletim;
 import org.springframework.stereotype.Component;
 
 import javax.swing.*;
@@ -32,19 +30,24 @@ public class HomePage extends JFrame {
     private JButton cadastrarButton;
     private JButton deletarButton;
     private JPanel header;
+    private JButton cadastrarNotasButton;
     private JLabel logoSchool;
     private JLabel nomeEscolinha;
     private final StudentService studentService;
     private final ProfessorService professorService;
     private final BoletimService boletimService;
     private final BoletimFinalService boletimFinalService;
+    private final MateriaService materiaService;
+    private final UnidadeService unidadeService;
 
 
-    public HomePage(StudentService studentService, ProfessorService professorService, BoletimService boletimService, BoletimFinalService boletimFinalService)throws Exception {
+    public HomePage(StudentService studentService, ProfessorService professorService, BoletimService boletimService, BoletimFinalService boletimFinalService, MateriaService materiaService, UnidadeService unidadeService)throws Exception {
         this.studentService = studentService;
         this.professorService = professorService;
         this.boletimService = boletimService;
         this.boletimFinalService = boletimFinalService;
+        this.materiaService = materiaService;
+        this.unidadeService = unidadeService;
         setContentPane(panel1);
         setTheme();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -74,6 +77,11 @@ public class HomePage extends JFrame {
                     }
                 }
             }
+        });
+
+        cadastrarNotasButton.addActionListener(f -> {
+            TelaBoletim telaBoletim = new TelaBoletim(studentService,boletimService,boletimFinalService,materiaService,unidadeService);
+            telaBoletim.setVisible(true);
         });
 
 

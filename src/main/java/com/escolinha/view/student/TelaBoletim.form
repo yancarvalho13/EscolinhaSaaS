@@ -71,7 +71,7 @@
             </constraints>
             <properties/>
           </component>
-          <component id="6ea8f" class="javax.swing.JComboBox" binding="AlunosComboBox">
+          <component id="6ea8f" class="javax.swing.JComboBox" binding="alunosComboBox">
             <constraints>
               <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -121,17 +121,30 @@
               <text value="Prova 2"/>
             </properties>
           </component>
-          <component id="253c" class="javax.swing.JComboBox" binding="comboBox1" default-binding="true">
+          <component id="253c" class="javax.swing.JComboBox" binding="materiaComboBox">
             <constraints>
               <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties/>
           </component>
-          <component id="e9461" class="javax.swing.JComboBox" binding="comboBox2" default-binding="true">
+          <component id="e9461" class="javax.swing.JComboBox" binding="unidadeComboBox">
             <constraints>
               <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
-            <properties/>
+            <properties>
+              <enabled value="true"/>
+              <lightWeightPopupEnabled value="true"/>
+              <model>
+                <item value="1"/>
+                <item value="2"/>
+                <item value="3"/>
+                <item value="4"/>
+              </model>
+              <popupVisible value="false"/>
+              <requestFocusEnabled value="true"/>
+              <verifyInputWhenFocusTarget value="true"/>
+              <visible value="true"/>
+            </properties>
           </component>
           <component id="59012" class="javax.swing.JTextField" binding="textField3" default-binding="true">
             <constraints>

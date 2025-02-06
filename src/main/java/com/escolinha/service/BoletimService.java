@@ -12,6 +12,7 @@ import java.util.List;
 public class BoletimService {
    private final BoletimRepository boletimRepository;
 
+
     public BoletimService(BoletimRepository boletimRepository) {
 
         this.boletimRepository = boletimRepository;

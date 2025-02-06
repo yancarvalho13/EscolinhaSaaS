@@ -7,7 +7,6 @@ import java.util.List;
 
 @Entity
 @Getter
-
 public class Materia {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
