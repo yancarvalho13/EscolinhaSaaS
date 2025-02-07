@@ -28,9 +28,9 @@ public class BoletimAnual {
 
     @ElementCollection
     @CollectionTable(name = "nota_final", joinColumns = @JoinColumn(name = "boletim_anual_id"))
-    @MapKeyJoinColumn(name = "materia_id")
+    @MapKeyColumn(name = "materia_id")
     @Column(name = "nota_final")
-    private Map<Materia, Double> notasFinais;
+    private Map<Long, Double> notasFinais;
 
 
 }

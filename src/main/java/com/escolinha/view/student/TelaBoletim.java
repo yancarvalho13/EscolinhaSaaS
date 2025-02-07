@@ -24,6 +24,7 @@ public class TelaBoletim extends JFrame {
     private JButton salvarNotaButton;
     private JTable table1;
     private JComboBox selecionarUnidadeComboBox;
+    private JButton voltarButton;
     private StudentService studentService;
     private BoletimService boletimService;
     private BoletimFinalService boletimFinalService;
@@ -51,6 +52,9 @@ public class TelaBoletim extends JFrame {
         getAlunosComboBox();
         getMateriasComboBox();
         salvarNota();
+        voltarButton.addActionListener(e -> {
+            dispose();
+        });
 
 
 
