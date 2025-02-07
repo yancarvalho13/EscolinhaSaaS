@@ -23,6 +23,7 @@ public class TelaBoletim extends JFrame {
     private JComboBox alunosComboBox;
     private JButton salvarNotaButton;
     private JTable table1;
+    private JComboBox selecionarUnidadeComboBox;
     private StudentService studentService;
     private BoletimService boletimService;
     private BoletimFinalService boletimFinalService;
@@ -44,11 +45,19 @@ public class TelaBoletim extends JFrame {
         setSize(new Dimension(1024, 768));
         setVisible(true);
         setLocationRelativeTo(null);
+        updateTable(boletimService);
 
+        updateTable(boletimService);
         getAlunosComboBox();
         getMateriasComboBox();
         salvarNota();
 
+
+
+        selecionarUnidadeComboBox.addActionListener(e -> {
+
+            updateTable(boletimService);
+        });
 
     }
 
@@ -64,6 +73,8 @@ public class TelaBoletim extends JFrame {
             System.out.println(materia.getIdMateria());
             Unidade unidade = new Unidade(student, materia, posicaoUnidade, prova1, prova2);
             unidadeService.save(unidade);
+            updateTable(boletimService);
+
         });
 
 
@@ -86,20 +97,28 @@ public class TelaBoletim extends JFrame {
            var student  = studentService.findStudentByName(name);
            this.selectedId = student.getIdStudent(); ///Não rodar debug nessa linha, Trava o computador
             System.out.println(selectedId);
+            updateTable(boletimService);
+
         });
     }
     private Object makeObj(final String item)  {
         return new Object() { public String toString() { return item; } };
     }
 
-    private void updateTable(BoletimService boletimService, int unidade,Long id) {
-        List<NotasDTO> notasDTOS = boletimService.findNotasDtoById(id);
-        StudentNotaTableModel studentNotaTableModel = new StudentNotaTableModel(unidade,notasDTOS);
+    private void updateTable(BoletimService boletimService) {
+        int unidadeSelecionada = selecionarUnidadeComboBox.getSelectedIndex()+1;
+        List<NotasDTO> notasDTOS = boletimService.findNotasDtoById(selectedId);
+        setTableModel(unidadeSelecionada, notasDTOS, table1);
+
+
+    }
+
+    static void setTableModel(int unidadeSelecionada, List<NotasDTO> notasDTOS, JTable table1) {
+        StudentNotaTableModel studentNotaTableModel = new StudentNotaTableModel(unidadeSelecionada,notasDTOS);
         table1.setModel(studentNotaTableModel);
         table1.setVisible(true);
         JTableHeader header = table1.getTableHeader();
         header.setReorderingAllowed(false);
         header.setFont(new Font("Arial", Font.BOLD, 20));
-
     }
 }

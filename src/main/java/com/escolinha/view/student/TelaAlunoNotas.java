@@ -82,13 +82,8 @@ public class TelaAlunoNotas extends JFrame{
 
     private void updateTable(BoletimService boletimService,int unidade) {
         List<NotasDTO> notasDTOS = boletimService.findNotasDtoById(this.id);
-        StudentNotaTableModel studentNotaTableModel = new StudentNotaTableModel(unidade,notasDTOS);
-        table1.setModel(studentNotaTableModel);
-        table1.setVisible(true);
-        JTableHeader header = table1.getTableHeader();
-        header.setReorderingAllowed(false);
-        header.setFont(new Font("Arial", Font.BOLD, 20));
-        
+        TelaBoletim.setTableModel(unidade, notasDTOS, table1);
+
     }
     private void updateTableFinal(BoletimService boletimService) {
         BoletimFinalDto boletim = boletimFinalService.buscarBoletimFinal(id, 2025);

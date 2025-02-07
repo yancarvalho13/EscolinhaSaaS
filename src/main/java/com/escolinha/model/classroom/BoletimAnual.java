@@ -31,4 +31,6 @@ public class BoletimAnual {
     @MapKeyJoinColumn(name = "materia_id")
     @Column(name = "nota_final")
     private Map<Materia, Double> notasFinais;
+
+
 }
