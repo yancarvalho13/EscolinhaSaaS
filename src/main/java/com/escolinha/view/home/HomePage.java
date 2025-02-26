@@ -169,8 +169,7 @@ public class HomePage extends JFrame {
         header.setReorderingAllowed(false);
         header.setFont(new Font("Arial", Font.BOLD, 20));
         table1.setFont(new Font("Arial", Font.BOLD, 24));
-        table1.setRowHeight(26);
-
+        table1.setRowHeight(40);
         setColumnWidth(0,100,table1);
         System.out.println(studentList);
     }
