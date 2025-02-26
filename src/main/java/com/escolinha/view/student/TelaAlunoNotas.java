@@ -3,6 +3,7 @@ package com.escolinha.view.student;
 import com.escolinha.dto.BoletimFinalDto;
 import com.escolinha.dto.NotaFinalMateriaDto;
 import com.escolinha.dto.NotasDTO;
+import com.escolinha.infra.ServiceProvider;
 import com.escolinha.model.student.Student;
 import com.escolinha.model.student.StudentNotaFinalTableModel;
 import com.escolinha.service.BoletimFinalService;
@@ -17,6 +18,7 @@ import java.awt.event.ActionListener;
 import java.util.List;
 
 public class TelaAlunoNotas extends JFrame{
+    private ServiceProvider serviceProvider;
     private Long id;
     private JTextField studentCpf;
     private JTextField studentBornDate;
@@ -30,16 +32,33 @@ public class TelaAlunoNotas extends JFrame{
     private JTextField studentName;
     private JButton boletimFinalButton;
     private JButton gerarBoletimFinalButton;
-    private final StudentService studentService;
-    private final BoletimService boletimService;
-    private final BoletimFinalService boletimFinalService;
 
 
-    public TelaAlunoNotas(StudentService studentService, Long id, BoletimService boletimService, BoletimFinalService boletimFinalService) {
+    public TelaAlunoNotas(ServiceProvider serviceProvider, Long id) {
+        this.serviceProvider = serviceProvider;
         this.id = id;
-        this.studentService = studentService;
-        this.boletimService = boletimService;
-        this.boletimFinalService = boletimFinalService;
+        initializeScreen();
+
+        handleEventListeners(serviceProvider);
+
+    }
+
+    private void handleEventListeners(ServiceProvider serviceProvider) {
+        boletimFinalButton.addActionListener(e ->{
+            updateTableFinal();
+        });
+
+        comboBox1.addActionListener(e -> {
+            int unidade = comboBox1.getSelectedIndex();
+            updateTable(serviceProvider.getBoletimService(), unidade+1);
+        });
+
+        gerarBoletimFinalButton.addActionListener(e -> {
+           generateFinalBoletim();
+        });
+    }
+
+    private void initializeScreen() {
         setContentPane(panelAlunoNotas);
         setTitle("Aluno");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -48,20 +67,6 @@ public class TelaAlunoNotas extends JFrame{
         setVisible(true);
         getStudentInfo();
         exitButton();
-
-        boletimFinalButton.addActionListener(e ->{
-            updateTableFinal();
-        });
-
-        comboBox1.addActionListener(e -> {
-            int unidade = comboBox1.getSelectedIndex();
-            updateTable(boletimService, unidade+1);
-        });
-
-        gerarBoletimFinalButton.addActionListener(e -> {
-           generateFinalBoletim();
-        });
-
     }
 
 
@@ -76,7 +81,7 @@ public class TelaAlunoNotas extends JFrame{
     }
 
     private void getStudentInfo(){
-       Student student =  studentService.findStudent(this.id);
+       Student student =  serviceProvider.getStudentService().findStudent(this.id);
        studentName.setText(student.getName());
        studentCpf.setText(String.valueOf(student.getCpf()));
        studentBornDate.setText(String.valueOf(student.getBornDate()));
@@ -90,17 +95,11 @@ public class TelaAlunoNotas extends JFrame{
 
     }
     private void updateTableFinal() {
-        BoletimFinalDto boletim = boletimFinalService.buscarBoletimFinal(id, 2025);
+        BoletimFinalDto boletim = serviceProvider.getBoletimFinalService().buscarBoletimFinal(id, 2025);
 
         if(boletim != null){
             List<NotaFinalMateriaDto> notas = boletim.notas();
-            StudentNotaFinalTableModel studentNotaFinalTableModel = new StudentNotaFinalTableModel(notas);
-            table1.setModel(studentNotaFinalTableModel);
-            table1.setVisible(true);
-
-            JTableHeader header = table1.getTableHeader();
-            header.setReorderingAllowed(false);
-            header.setFont(new Font("Arial", Font.BOLD, 20));
+            setTableModel(notas);
         }else{
             JOptionPane.showMessageDialog(this, "Nenhum boletim encontrado para este aluno.", "Aviso", JOptionPane.WARNING_MESSAGE);
 
@@ -108,12 +107,22 @@ public class TelaAlunoNotas extends JFrame{
 
     }
 
+    private void setTableModel(List<NotaFinalMateriaDto> notas) {
+        StudentNotaFinalTableModel studentNotaFinalTableModel = new StudentNotaFinalTableModel(notas);
+        table1.setModel(studentNotaFinalTableModel);
+        table1.setVisible(true);
+
+        JTableHeader header = table1.getTableHeader();
+        header.setReorderingAllowed(false);
+        header.setFont(new Font("Arial", Font.BOLD, 20));
+    }
+
     private void generateFinalBoletim(){
         try {
-            BoletimFinalDto boletim = boletimFinalService.buscarBoletimFinal(id, 2025);
+            BoletimFinalDto boletim = serviceProvider.getBoletimFinalService().buscarBoletimFinal(id, 2025);
 
             if(boletim == null) {
-                boletimFinalService.gerarBoletim(id, 2025);
+                serviceProvider.getBoletimFinalService().gerarBoletim(id, 2025);
                 JOptionPane.showMessageDialog(this, "Boletim gerado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
             } else {
                 JOptionPane.showMessageDialog(this, "Boletim já existe para este aluno!", "Aviso", JOptionPane.WARNING_MESSAGE);

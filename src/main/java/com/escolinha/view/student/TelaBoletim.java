@@ -1,6 +1,7 @@
 package com.escolinha.view.student;
 
 import com.escolinha.dto.NotasDTO;
+import com.escolinha.infra.ServiceProvider;
 import com.escolinha.model.classroom.Materia;
 import com.escolinha.model.classroom.Unidade;
 import com.escolinha.model.student.Student;
@@ -25,45 +26,44 @@ public class TelaBoletim extends JFrame {
     private JTable table1;
     private JComboBox selecionarUnidadeComboBox;
     private JButton voltarButton;
-    private StudentService studentService;
-    private BoletimService boletimService;
-    private BoletimFinalService boletimFinalService;
-    private MateriaRepository materiaRepository;
-    private MateriaService materiaService;
-    private UnidadeService unidadeService;
     private Long selectedId;
+    private ServiceProvider serviceProvider;
 
 
-    public TelaBoletim(StudentService studentService, BoletimService boletimService, BoletimFinalService boletimFinalService, MateriaService materiaService, UnidadeService unidadeService) {
-        this.materiaService = materiaService;
-        this.studentService = studentService;
-        this.boletimService = boletimService;
-        this.boletimFinalService = boletimFinalService;
-        this.unidadeService = unidadeService;
+    public TelaBoletim(ServiceProvider serviceProvider) {
+        this.serviceProvider = serviceProvider;
 
-        setContentPane(panel1);
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setSize(new Dimension(1024, 768));
-        setVisible(true);
-        setLocationRelativeTo(null);
-        updateTable(boletimService);
+        initializeScreen(serviceProvider);
+        handleEventListeners(serviceProvider);
 
-        updateTable(boletimService);
-        getAlunosComboBox();
-        getMateriasComboBox();
-        salvarNota();
+    }
+
+    private void handleEventListeners(ServiceProvider serviceProvider) {
         voltarButton.addActionListener(e -> {
             dispose();
         });
 
 
-
         selecionarUnidadeComboBox.addActionListener(e -> {
 
-            updateTable(boletimService);
+            updateTable(serviceProvider.getBoletimService());
         });
-
     }
+
+    private void initializeScreen(ServiceProvider serviceProvider) {
+        setContentPane(panel1);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setSize(new Dimension(1024, 768));
+        setVisible(true);
+        setLocationRelativeTo(null);
+        updateTable(serviceProvider.getBoletimService());
+
+        updateTable(serviceProvider.getBoletimService());
+        getAlunosComboBox();
+        getMateriasComboBox();
+        salvarNota();
+    }
+
 
     private void salvarNota() {
         salvarNotaButton.addActionListener(a ->{
@@ -72,12 +72,12 @@ public class TelaBoletim extends JFrame {
             int posicaoUnidade = unidadeComboBox.getSelectedIndex()+1;
             Double prova1 = Double.parseDouble(prova1TextField.getText());
             Double prova2 = Double.parseDouble(prova2TextField.getText());
-            Student student = studentService.findStudentByName(studentName);
-            Materia materia = materiaService.findBynome(materiaName);
+            Student student = serviceProvider.getStudentService().findStudentByName(studentName);
+            Materia materia = serviceProvider.getMateriaService().findBynome(materiaName);
             System.out.println(materia.getIdMateria());
             Unidade unidade = new Unidade(student, materia, posicaoUnidade, prova1, prova2);
-            unidadeService.save(unidade);
-            updateTable(boletimService);
+            serviceProvider.getUnidadeService().save(unidade);
+            updateTable(serviceProvider.getBoletimService());
 
         });
 
@@ -85,23 +85,21 @@ public class TelaBoletim extends JFrame {
     }
 
     private void getMateriasComboBox() {
-        List<Materia> materiaList = materiaService.findAll();
+        List<Materia> materiaList = serviceProvider.getMateriaService().findAll();
         for (Materia materia : materiaList) {
             materiaComboBox.addItem(makeObj(materia.getNome()));
         }
     }
 
     private void getAlunosComboBox() {
-        List<Student> studentList = studentService.listAllStudents();
+        List<Student> studentList = serviceProvider.getStudentService().listAllStudents();
         for(Student student : studentList) {
             alunosComboBox.addItem(makeObj(student.getName()));
         }
         alunosComboBox.addActionListener(e -> {
            String name = alunosComboBox.getSelectedItem().toString();
-           var student  = studentService.findStudentByName(name);
-           this.selectedId = student.getIdStudent(); ///Não rodar debug nessa linha, Trava o computador
-            System.out.println(selectedId);
-            updateTable(boletimService);
+           var student  = serviceProvider.getStudentService().findStudentByName(name);
+            updateTable(serviceProvider.getBoletimService());
 
         });
     }

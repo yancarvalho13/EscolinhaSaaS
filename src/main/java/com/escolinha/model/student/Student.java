@@ -1,6 +1,7 @@
 package com.escolinha.model.student;
 
 import com.escolinha.model.classroom.BoletimAnual;
+import com.escolinha.model.classroom.Turma;
 import com.escolinha.model.classroom.Unidade;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -28,6 +29,10 @@ public class Student {
 
     @OneToOne(mappedBy = "student", cascade = CascadeType.ALL, orphanRemoval = true)
     private BoletimAnual boletimAnual;
+
+    @ManyToOne
+    @JoinColumn(name = "turma_id")
+    private Turma turma;
 
 
 }

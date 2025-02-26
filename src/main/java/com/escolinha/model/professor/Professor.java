@@ -1,5 +1,6 @@
 package com.escolinha.model.professor;
 
+import com.escolinha.model.classroom.Turma;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -13,6 +14,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "Professors",
@@ -45,5 +47,8 @@ public class Professor {
     @Positive(message = "Salário deve ser positivo")
     @Column(nullable = false, precision = 10, scale = 2)
     private BigDecimal salary;
+
+    @OneToMany(mappedBy = "professor")
+    private List<Turma> turma;
 
 }
